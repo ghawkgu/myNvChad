@@ -1,4 +1,5 @@
 vim.keymap.set("!", "<C-h>", "<BS>")
+vim.keymap.set({ "i" }, "<C-h>", "<Left>")
 
 ---@type ChadrcConfig
 local M = {}
