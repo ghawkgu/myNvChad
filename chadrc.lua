@@ -1,3 +1,5 @@
+vim.keymap.set("!", "<C-h>", "<BS>")
+
 ---@type ChadrcConfig
 local M = {}
 
