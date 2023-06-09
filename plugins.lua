@@ -89,9 +89,8 @@ local plugins = {
     -- event = "BufEnter",
     lazy = false,
     config = function()
-      vim.cmd([[ 
-        vnoremap <silent> <Enter> :EasyAlign<cr>
-      ]])
+      -- vnoremap <silent> <Enter> :EasyAlign<cr>
+      vim.keymap.set('v', '<Enter>', ':EasyAlign<CR>')
     end
   }
 
