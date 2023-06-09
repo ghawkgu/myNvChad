@@ -17,7 +17,7 @@ call matchadd('RedundantSpaces', '\(\s\+$\| \+\ze\t\|\t\zs \+\)\(\%#\)\@!')
 highlight CursorLine term=none cterm=none gui=none
 " Enable the curline and listchars only in the insert mode
 function! EnterInsertMode()
-    if &ft =~ 'NvimTree'
+    if &ft =~ 'NvimTree' || &ft =~ 'Telescope'
         return
     endif
     setlocal listchars-=eol:¬
@@ -27,7 +27,7 @@ function! EnterInsertMode()
 endfunction
 
 function! ExitInsertMode()
-    if &ft =~ 'NvimTree'
+    if &ft =~ 'NvimTree' || &ft =~ 'Telescope'
         return
     endif
     setlocal listchars+=eol:¬
