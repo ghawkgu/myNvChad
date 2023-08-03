@@ -69,6 +69,11 @@ local plugins = {
     ft = {"fugitive"}
   },
 
+  {
+    "tpope/vim-rails",
+    lazy = false,
+  },
+
   -- {
   --   "tpope/vim-surround",
   -- },
