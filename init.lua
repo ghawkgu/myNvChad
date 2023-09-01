@@ -5,3 +5,9 @@
 --   pattern = "*",
 --   command = "tabdo wincmd =",
 -- })
+
+--- Remove all trailing whitespace on save
+-- autocmd("BufWritePre", {
+--   command = [[:%s/\s\+$//e]],
+--   group = augroup("TrimWhiteSpaceGrp", { clear = true }),
+-- })
