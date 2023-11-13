@@ -1,12 +1,19 @@
 ---@type MappingsTable
 local M = {}
 
+M.disabled = {
+  n = {
+    -- Disable the blame_line from gitsigns
+    ["<leader>gb"] = ""
+  }
+}
+
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
 
     -- Vim Fugitive
-    ["<Leader>gs"] = { ":Git<CR>" },
+    ["<leader>gs"] = { ":Git<CR>" },
     ["<Leader>gb"] = { ":Git blame<CR>" },
     -- map("n", "<Leader>gs", ":Git<CR>", opt)
     -- map("n", "<Leader>gh", ":diffget //2<CR>", opt)
@@ -20,7 +27,7 @@ M.general = {
 
     ["<C-s>"] = { "<C-S> :%s/<C-R><C-W>//gc<Left><Left><Left>", "Search & replase current highlighted word" },
 
-    ["<Leader>?"] = { ":lua vim.diagnostic.open_float()<CR>", "Show diagnostic info.", opts = { noremap = true, silent = true } },
+    ["<leader>?"] = { ":lua vim.diagnostic.open_float()<CR>", "Show diagnostic info.", opts = { noremap = true, silent = true } },
   },
 
   v = {
