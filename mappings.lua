@@ -19,6 +19,8 @@ M.general = {
     ["<S-Down>"] = { ":resize -5<CR>", "Decrease window height." },
 
     ["<C-s>"] = { "<C-S> :%s/<C-R><C-W>//gc<Left><Left><Left>", "Search & replase current highlighted word" },
+
+    ["<Leader>?"] = { ":lua vim.diagnostic.open_float()<CR>", "Show diagnostic info.", opts = { noremap = true, silent = true } },
   },
 
   v = {
