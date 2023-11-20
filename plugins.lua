@@ -47,6 +47,58 @@ local plugins = {
     end,
   },
 
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+    cmd = {
+      "G",
+      "Git",
+      "Gdiffsplit",
+      "Gvdiffsplit",
+      "Gread",
+      "Gwrite",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit"
+    },
+    ft = {"fugitive"}
+  },
+
+  {
+    "tpope/vim-rails",
+    lazy = false,
+  },
+
+  -- {
+  --   "tpope/vim-surround",
+  -- },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+          -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+
+  {
+    "junegunn/vim-easy-align",
+    -- event = "BufEnter",
+    lazy = false,
+    config = function()
+      -- vnoremap <silent> <Enter> :EasyAlign<cr>
+      vim.keymap.set('v', '<Enter>', ':EasyAlign<CR>')
+    end
+  }
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

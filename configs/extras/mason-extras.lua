@@ -5,7 +5,7 @@ local setup = function(_, opts)
   local lspconfig = require "lspconfig"
 
   -- List of servers to install
-  local servers = { "html", "cssls", "tsserver", "clangd" }
+  local servers = { "html", "cssls", "tsserver", "clangd", "json", "cmake", "python" }
 
   require("mason").setup(opts)
 
