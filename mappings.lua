@@ -31,7 +31,7 @@ M.general = {
   },
 
   v = {
-    ["<C-s>"] = { "y:%s/<C-R>=escape(@\", '.*/\\[]^$+?\\|{}()')<CR>//gc<Left><Left><Left>", "Search & replase current highlighted word" },
+    ["<C-s>"] = { "y:%s/\\v<C-R>=escape(@\", '.*/\\[]^$+?\\|{}()')<CR>//gc<Left><Left><Left>", "Search & replase current highlighted word" },
   },
 }
 
