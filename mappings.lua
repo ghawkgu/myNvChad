@@ -1,3 +1,18 @@
+-- CTRL-H in different mode.
+vim.keymap.set("!", "<C-h>", "<BS>")
+vim.keymap.set({ "i" }, "<C-h>", "<Left>")
+
+-- With PR #19238 (https://github.com/neovim/neovim/pull/19238)
+local abbrev = vim.cmd.abbrev
+
+-- Without #19238
+-- local function abbrev(l, r)
+--   vim.cmd{ cmd = 'abbrev', args = { l, r } }
+-- end
+
+-- Requires SUDO_ASKPASS to be set properly
+abbrev("w!!", ":w !sudo -A tee %")
+
 ---@type MappingsTable
 local M = {}
 
@@ -28,6 +43,7 @@ M.general = {
     ["<C-s>"] = { "<C-S> :%s/<C-R><C-W>//gc<Left><Left><Left>", "Search & replase current highlighted word" },
 
     ["<leader>?"] = { ":lua vim.diagnostic.open_float()<CR>", "Show diagnostic info.", opts = { noremap = true, silent = true } },
+
   },
 
   v = {
