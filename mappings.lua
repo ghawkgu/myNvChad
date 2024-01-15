@@ -44,6 +44,9 @@ M.general = {
 
     ["<leader>?"] = { ":lua vim.diagnostic.open_float()<CR>", "Show diagnostic info.", opts = { noremap = true, silent = true } },
 
+    ["<leader>mdpt"] = { ":MarkdownPreviewToggle<CR>", "Toggle Markdown Preview" },
+    ["<leader>mdp0"] = { ":MarkdownPreviewStop<CR>", "Markdown Preview Stop" },
+    ["<leader>mdp1"] = { ":MarkdownPreview<CR>", "Markdown Preview Start" },
   },
 
   v = {

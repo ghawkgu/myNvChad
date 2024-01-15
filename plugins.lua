@@ -97,6 +97,13 @@ local plugins = {
       -- vnoremap <silent> <Enter> :EasyAlign<cr>
       vim.keymap.set('v', '<Enter>', ':EasyAlign<CR>')
     end
+  },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
   }
 
   -- To make a plugin not be loaded
