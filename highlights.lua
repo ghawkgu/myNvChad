@@ -10,7 +10,7 @@ M.override = {
     italic = true,
   },
   CursorLine = {
-    bg = "one_bg",
+    bg = "one_bg2",
   },
 }
 

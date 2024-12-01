@@ -36,8 +36,8 @@ vim.api.nvim_set_hl(0, "RedundantSpaces", { ctermbg = "Grey", bg = "#ffddcc", st
 
 -- Highlight CursorLine conditionally
 local function enter_insert_mode()
-    local ft = vim.bo.filetype
-    if ft == "NvimTree" or ft == "Telescope" then
+    local excluded_filetypes = { "NvimTree", "Telescope", "TelescopePrompt" }
+    if vim.tbl_contains(excluded_filetypes, vim.bo.filetype) then
         return
     end
     vim.opt_local.listchars:remove("eol:¬")
@@ -46,8 +46,8 @@ local function enter_insert_mode()
 end
 
 local function exit_insert_mode()
-    local ft = vim.bo.filetype
-    if ft == "NvimTree" or ft == "Telescope" then
+    local excluded_filetypes = { "NvimTree", "Telescope", "TelescopePrompt" }
+    if vim.tbl_contains(excluded_filetypes, vim.bo.filetype) then
         return
     end
     vim.opt_local.listchars:append("eol:¬")
