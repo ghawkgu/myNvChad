@@ -11,64 +11,67 @@
 --   command = [[:%s/\s\+$//e]],
 --   group = augroup("TrimWhiteSpaceGrp", { clear = true }),
 -- })
+
 -- vim.cmd [[set whichwrap=<>[]hl,b,s]]
-vim.cmd [[set whichwrap=<>[],b,s]]
-vim.cmd([[
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,nbsp:_,trail:-
-highlight SpecialKey term=standout ctermbg=yellow " guibg=yellow
-highlight RedundantSpaces term=standout ctermbg=Grey " guibg=#ffddcc
-call matchadd('RedundantSpaces', '\(\s\+$\| \+\ze\t\|\t\zs \+\)\(\%#\)\@!')
+-- vim.cmd [[set whichwrap=<>[],b,s]]
+vim.opt.whichwrap = "<>[]bs"
 
-highlight CursorLine term=none cterm=none gui=none
-" Enable the curline and listchars only in the insert mode
-function! EnterInsertMode()
-    if &ft =~ 'NvimTree' || &ft =~ 'Telescope'
+-- Set listchars for whitespace display
+vim.opt.listchars = {
+    space = "·",
+    tab = "▸ ",
+    eol = "¬",
+    extends = "❯",
+    precedes = "❮",
+    nbsp = "_",
+    trail = "-"
+}
+
+-- Highlight groups for special keys and redundant spaces
+vim.api.nvim_set_hl(0, "SpecialKey", { ctermbg = "yellow", standout = true })
+vim.api.nvim_set_hl(0, "RedundantSpaces", { ctermbg = "Grey", bg = "#ffddcc", standout = true })
+
+-- Highlight of redundant spaces is disabled as nvcheatsheet is highlighted as well
+-- vim.fn.matchadd("RedundantSpaces", [[\(\s\+$\| \+\ze\t\|\t\zs \+\)\(\%#\)\@!]])
+
+-- Highlight CursorLine conditionally
+local function enter_insert_mode()
+    local ft = vim.bo.filetype
+    if ft == "NvimTree" or ft == "Telescope" then
         return
-    endif
-    setlocal listchars-=eol:¬
-    setlocal list
-    highlight CursorLine term=underline cterm=underline gui=underline
-    " setlocal cursorline
-endfunction
+    end
+    vim.opt_local.listchars:remove("eol:¬")
+    vim.opt_local.list = true
+    vim.api.nvim_set_hl(0, "CursorLine", { underline = true, bg = "#2a2a2a" })
+end
 
-function! ExitInsertMode()
-    if &ft =~ 'NvimTree' || &ft =~ 'Telescope'
+local function exit_insert_mode()
+    local ft = vim.bo.filetype
+    if ft == "NvimTree" or ft == "Telescope" then
         return
-    endif
-    setlocal listchars+=eol:¬
-    setlocal nolist
-    highlight CursorLine term=none cterm=none gui=none
-    " setlocal nocursorline
-endfunction
+    end
+    vim.opt_local.listchars:append("eol:¬")
+    vim.opt_local.list = false
+    vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = "#2a2a2a" })
+end
 
-augroup HighlightSpecialKeys
-    au!
-    au InsertEnter * call EnterInsertMode()
-    au InsertLeave * call ExitInsertMode()
-augroup END
+vim.api.nvim_create_autocmd("InsertEnter", { callback = enter_insert_mode })
+vim.api.nvim_create_autocmd("InsertLeave", { callback = exit_insert_mode })
 
-function! EnableCursorLine()
-    " Disable the cursorline for tagbar, because there is a great performance
-    " hit if it is enabled.
-    if &ft =~ 'tagbar'
-        setlocal nocursorline
-        return
-    endif
-    setlocal cursorline
-endfunction
+-- Enable or disable cursorline in specific situations
+local function enable_cursor_line()
+    if vim.bo.filetype == "tagbar" then
+        vim.opt_local.cursorline = false
+    else
+        vim.opt_local.cursorline = true
+    end
+end
 
-function! DisableCursorLine()
-    if &ft =~ 'NvimTree'
-        return
-    endif
-    setlocal nocursorline
-endfunction
+local function disable_cursor_line()
+    if vim.bo.filetype ~= "NvimTree" then
+        vim.opt_local.cursorline = false
+    end
+end
 
-" Highlight the cursorline only in the active window.
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * call EnableCursorLine()
-    " au WinLeave * setlocal nocursorline
-    au WinLeave * call DisableCursorLine()
-augroup END
-]])
+vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, { callback = enable_cursor_line })
+vim.api.nvim_create_autocmd("WinLeave", { callback = disable_cursor_line })
