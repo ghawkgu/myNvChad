@@ -28,8 +28,8 @@ M.general = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
 
     -- Vim Fugitive
-    ["<leader>gs"] = { ":Git<CR>" },
-    ["<Leader>gb"] = { ":Git blame<CR>" },
+    ["<leader>gs"] = { ":Git<CR>", "Toggle git status" },
+    ["<Leader>gb"] = { ":Git blame<CR>", "Toggle git blame" },
     -- map("n", "<Leader>gs", ":Git<CR>", opt)
     -- map("n", "<Leader>gh", ":diffget //2<CR>", opt)
     -- map("n", "<Leader>gl", ":diffget //3<CR>", opt)
