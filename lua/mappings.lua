@@ -1,10 +1,34 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+-- map("n", ";", ":", { desc = "CMD enter command mode" })
+-- map("i", "jk", "<ESC>")
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+-- CTRL-H in different mode.
+map("!", "<C-h>", "<BS>")
+map({ "i" }, "<C-h>", "<Left>")
+
+local abbrev = vim.cmd.abbrev
+abbrev("w!!", ":w !sudo -A tee %")
+
+map("n", ";", ":", { desc = "enter command mode", nowait = true })
+
+map("n", "<leader>gs", ":Git<CR>", { desc = "Toggle git status"})
+map("n", "<leader>gb", ":Git blame<CR>", { desc = "Toggle git blame"})
+
+map("n", "<S-Left>",  ":vertical resize -5<CR>", { desc = "Decrease window width." })
+map("n", "<S-Right>", ":vertical resize +5<CR>", { desc = "Increase window height." })
+map("n", "<S-Up>",    ":resize +5<CR>",          { desc = "Increase window height." })
+map("n", "<S-Down>",  ":resize -5<CR>",          { desc = "Decrease window height." })
+
+
+map("n", "<C-s>", "<C-S> :%s/<C-R><C-W>//gc<Left><Left><Left>", { desc = "Search & replase current highlighted word" })
+
+map("n", "<leader>?", ":lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostic info.", noremap = true, silent = true })
+
+map("n", "<leader>mdpt", ":MarkdownPreviewToggle<CR>", { desc = "Toggle Markdown Preview" })
+map("n", "<leader>mdp0", ":MarkdownPreviewStop<CR>", { desc = "Markdown Preview Stop" })
+map("n", "<leader>mdp1", ":MarkdownPreview<CR>", { desc = "Markdown Preview Start" })
+
+map("v", "<C-s>", "y:%s/\\v<C-R>=escape(@\", '.*/\\[]^$+?\\|{}()')<CR>//gc<Left><Left><Left>", { desc = "Search & replase current highlighted word" })

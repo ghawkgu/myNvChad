@@ -5,13 +5,23 @@
 ---@type ChadrcConfig
 local M = {}
 
+local highlights = require "highlights"
+
 M.base46 = {
-	theme = "onedark",
+	-- theme = "onedark",
+    theme = "jellybeans",
 
 	-- hl_override = {
 	-- 	Comment = { italic = true },
 	-- 	["@comment"] = { italic = true },
 	-- },
+    --
+    hl_override = highlights.override,
+    hl_add = highlights.add,
+}
+
+M.ui = {
+    telescope = { style = "bordered" },
 }
 
 -- M.nvdash = { load_on_startup = true }
