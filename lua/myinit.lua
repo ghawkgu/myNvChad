@@ -12,6 +12,7 @@
 --   group = augroup("TrimWhiteSpaceGrp", { clear = true }),
 -- })
 
+vim.env.SUDO_ASKPASS = '/usr/local/bin/ssh-askpass'
 -- vim.cmd [[set whichwrap=<>[]hl,b,s]]
 -- vim.cmd [[set whichwrap=<>[],b,s]]
 vim.opt.whichwrap = "<>[]bs"
