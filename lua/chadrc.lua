@@ -9,7 +9,8 @@ local highlights = require "highlights"
 
 M.base46 = {
 	-- theme = "onedark",
-    theme = "jellybeans",
+    -- theme = "jellybeans",
+    theme = "wombat",
 
 	-- hl_override = {
 	-- 	Comment = { italic = true },
