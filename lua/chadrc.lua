@@ -21,8 +21,11 @@ M.base46 = {
     hl_add = highlights.add,
 }
 
+local statusline = require "statusline"
+
 M.ui = {
     telescope = { style = "bordered" },
+    statusline = statusline.override,
 }
 
 -- M.nvdash = { load_on_startup = true }
