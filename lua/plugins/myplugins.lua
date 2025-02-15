@@ -17,7 +17,7 @@ local plugins = {
       },
     },
     config = function()
-      require "nvchad.configs.lspconfig"
+      -- require "nvchad.configs.lspconfig"
       require "configs.lspconfig"
     end, -- Override to setup mason-lspconfig
   },
@@ -112,7 +112,48 @@ local plugins = {
     ft = { "markdown" },
     -- build = function() vim.fn["mkdp#util#install"]() end,
     build = ":call mkdp#util#install()",
-  }
+  },
+
+  -- config-local enables project-specific config
+  -- For example, to add the clangd config to .cland.lua to project root dir.
+  --
+  -- local lspconfig = require "lspconfig"
+  --
+  -- lspconfig.clangd.setup {
+  --   cmd = {
+  --     "clangd",
+  --     "--pretty",
+  --     "--header-insertion=iwyu",
+  --     "--background-index",
+  --     "--suggest-missing-includes",
+  --     "--query-driver=/usr/bin/arm-none-eabi-gcc",
+  --     "-j=40",
+  --     "--pch-storage=memory",
+  --     "--clang-tidy",
+  --     "--compile-commands-dir=./build/",
+  --   },
+  --   filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+  -- }
+  {
+    "klen/nvim-config-local",
+    lazy = false,
+    config = function()
+      require("config-local").setup {
+        -- Default options (optional)
+
+        -- Config file patterns to load (lua supported)
+        config_files = { ".clangd.lua", ".nvim.lua", ".nvimrc", ".exrc" },
+
+        -- Where the plugin keeps files data
+        hashfile = vim.fn.stdpath("data") .. "/config-local",
+
+        autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
+        commands_create = true, -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
+        silent = false, -- Disable plugin messages (Config loaded/ignored)
+        lookup_parents = false, -- Lookup config files in parent directories
+      }
+    end,
+  },
 
   -- To make a plugin not be loaded
   -- {
