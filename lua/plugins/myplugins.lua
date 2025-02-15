@@ -50,6 +50,11 @@ local plugins = {
   },
 
   {
+    "lewis6991/gitsigns.nvim",
+    opts = overrides.gitsigns,
+  },
+
+  {
     "tpope/vim-fugitive",
     lazy = false,
     cmd = {
