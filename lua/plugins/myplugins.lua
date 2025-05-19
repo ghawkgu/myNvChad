@@ -25,6 +25,13 @@ local plugins = {
 
   -- override plugin configs
   {
+    "nvim-telescope/telescope.nvim",
+    opts = function(_, opts)
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, overrides.telescope)
+    end,
+  },
+
+  {
     "williamboman/mason.nvim",
     opts = overrides.mason
   },

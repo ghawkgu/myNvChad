@@ -24,6 +24,9 @@ M.override = {
   TelescopePreviewLine = {
     bg = "one_bg2",
   },
+
+  TelescopeBorder = { fg = "orange" },
+  TelescopePromptBorder = { fg = "orange"}
 }
 
 ---@type HLTable

@@ -40,6 +40,11 @@ M.mason = {
   },
 }
 
+M.telescope = {
+  selection_caret = "|> ",
+  entry_prefix = "   ",
+}
+
 local function nvim_tree_on_attach(bufnr)
   local api = require('nvim-tree.api')
 
