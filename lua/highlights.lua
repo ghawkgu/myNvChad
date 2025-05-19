@@ -12,6 +12,18 @@ M.override = {
   CursorLine = {
     bg = "one_bg2",
   },
+
+  NvimTreeCursorLine = {
+    bg = "one_bg2",
+  },
+
+  TelescopeSelection = {
+    bg = "one_bg2",
+  },
+
+  TelescopePreviewLine = {
+    bg = "one_bg2",
+  },
 }
 
 ---@type HLTable

@@ -1,3 +1,4 @@
+local colors = require("base46").get_theme_tb "base_30"
 -- local autocmd = vim.api.nvim_create_autocmd
 
 -- Auto resize panes when resizing nvim window
@@ -43,7 +44,7 @@ local function enter_insert_mode()
     end
     vim.opt_local.listchars:remove("eol:¬")
     vim.opt_local.list = true
-    vim.api.nvim_set_hl(0, "CursorLine", { underline = true, bg = "#2a2a2a" })
+    vim.api.nvim_set_hl(0, "CursorLine", { underline = true, bg = colors.one_bg2 })
 end
 
 local function exit_insert_mode()
@@ -53,7 +54,7 @@ local function exit_insert_mode()
     end
     vim.opt_local.listchars:append("eol:¬")
     vim.opt_local.list = false
-    vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = "#2a2a2a" })
+    vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = colors.one_bg2 })
 end
 
 vim.api.nvim_create_autocmd("InsertEnter", { callback = enter_insert_mode })
