@@ -24,3 +24,30 @@ end
 -- }
 
 -- lspconfig.pyright.setup { blabla}
+
+lspconfig.dartls.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  cmd = { "dart", "language-server", "--protocol=lsp" },
+}
+
+lspconfig.ruby_lsp.setup({
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+
+  cmd = { "ruby-lsp" },
+  filetypes = { "ruby" },
+  root_dir = lspconfig.util.root_pattern("Gemfile", ".git"),
+  init_options = {
+    formatting = "auto",
+  },
+  single_file_support = true,
+})
+
+lspconfig.gopls.setup({
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+})

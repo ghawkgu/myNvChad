@@ -32,3 +32,14 @@ map("n", "<leader>mdp0", ":MarkdownPreviewStop<CR>", { desc = "Markdown Preview 
 map("n", "<leader>mdp1", ":MarkdownPreview<CR>", { desc = "Markdown Preview Start" })
 
 map("v", "<C-s>", "y:%s/\\v<C-R>=escape(@\", '.*/\\[]^$+?\\|{}()')<CR>//gc<Left><Left><Left>", { desc = "Search & replase current highlighted word" })
+
+-- nvchad use <leader>fm for formatting the entire file
+-- Visual mode: format selected range
+-- map("v", "<leader>ff", function()
+map("v", "ff", function()
+-- @diagnostic disable-next-line: different-requires
+  require("conform").format { async = true, lsp_fallback = true, range = true }
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+end, { desc = "Indent + Format (with conform)", silent = true })
+
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })

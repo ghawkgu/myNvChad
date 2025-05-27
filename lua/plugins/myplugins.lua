@@ -5,23 +5,23 @@ local plugins = {
 
   -- Override plugin definition options
 
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      -- format & linting
-      {
-        -- "jose-elias-alvarez/null-ls.nvim",
-        "nvimtools/none-ls.nvim",
-        config = function()
-          require "configs.null-ls"
-        end,
-      },
-    },
-    config = function()
-      -- require "nvchad.configs.lspconfig"
-      require "configs.lspconfig"
-    end, -- Override to setup mason-lspconfig
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   dependencies = {
+  --     -- format & linting
+  --     {
+  --       -- "jose-elias-alvarez/null-ls.nvim",
+  --       "nvimtools/none-ls.nvim",
+  --       config = function()
+  --         require "configs.null-ls"
+  --       end,
+  --     },
+  --   },
+  --   config = function()
+  --     -- require "nvchad.configs.lspconfig"
+  --     require "configs.lspconfig"
+  --   end, -- Override to setup mason-lspconfig
+  -- },
 
   -- override plugin configs
   {
@@ -179,6 +179,7 @@ local plugins = {
 
   -- To use a extras plugin
   -- { import = "configs.extras.symbols-outline", },
+  { import = "nvchad.blink.lazyspec" }
 }
 
 return plugins

@@ -12,6 +12,15 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+
+    "cpp",
+    "make",
+    "cmake",
+
+    "dart",
+    "go",
+    "ruby",
+    "python",
   },
   indent = {
     enable = true,
@@ -33,10 +42,25 @@ M.mason = {
     "typescript-language-server",
     "deno",
     "prettier",
+    "emmet-ls",
+    "json-lsp",
 
     -- c/cpp stuff
     "clangd",
     "clang-format",
+    "cmake-language-server",
+
+    -- python
+    "autopep8",
+    "python-lsp-server",
+
+    -- golang
+    "gofumpt",
+    "gopls",
+
+    -- ruby
+    "ruby-lsp",
+    "rubyfmt",
   },
 }
 
