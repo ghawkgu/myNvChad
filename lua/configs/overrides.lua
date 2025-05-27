@@ -41,8 +41,21 @@ M.mason = {
 }
 
 M.telescope = {
-  selection_caret = "|> ",
-  entry_prefix = "   ",
+  selection_caret = "> ",
+  -- selection_caret = "|> ",
+  entry_prefix = "    ",
+  -- borderchars = {
+  --   prompt  = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+  --   results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+  --   preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+  -- },
+  winblend = 0,
+  border = true,
+  -- borderchars = {
+  --   prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+  --   results = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+  --   preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+  -- },
 }
 
 local function nvim_tree_on_attach(bufnr)
