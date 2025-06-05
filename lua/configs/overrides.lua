@@ -28,6 +28,9 @@ M.treesitter = {
     --   "python"
     -- },
   },
+  matchup = {
+    enable = true, -- mandatory
+  },
 }
 
 M.mason = {
