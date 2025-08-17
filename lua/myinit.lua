@@ -43,8 +43,14 @@ local function enter_insert_mode()
         return
     end
     vim.opt_local.listchars:remove("eol:¬")
-    vim.opt_local.list = true
+    -- vim.opt_local.list = true
     vim.api.nvim_set_hl(0, "CursorLine", { underline = true, bg = colors.one_bg2 })
+
+    vim.schedule(function()
+        if vim.fn.mode() == "i" then
+            vim.opt_local.list = true
+        end
+    end)
 end
 
 local function exit_insert_mode()
@@ -53,27 +59,15 @@ local function exit_insert_mode()
         return
     end
     vim.opt_local.listchars:append("eol:¬")
-    vim.opt_local.list = false
+    -- vim.opt_local.list = false
     vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = colors.one_bg2 })
+
+    vim.schedule(function()
+        if vim.fn.mode() ~= "i" then
+            vim.opt_local.list = false
+        end
+    end)
 end
 
 vim.api.nvim_create_autocmd("InsertEnter", { callback = enter_insert_mode })
 vim.api.nvim_create_autocmd("InsertLeave", { callback = exit_insert_mode })
-
--- Enable or disable cursorline in specific situations
-local function enable_cursor_line()
-    if vim.bo.filetype == "tagbar" then
-        vim.opt_local.cursorline = false
-    else
-        vim.opt_local.cursorline = true
-    end
-end
-
-local function disable_cursor_line()
-    if vim.bo.filetype ~= "NvimTree" then
-        vim.opt_local.cursorline = false
-    end
-end
-
-vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, { callback = enable_cursor_line })
-vim.api.nvim_create_autocmd("WinLeave", { callback = disable_cursor_line })
