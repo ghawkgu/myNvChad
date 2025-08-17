@@ -26,9 +26,18 @@ local plugins = {
   -- override plugin configs
   {
     "nvim-telescope/telescope.nvim",
+    enabled = false,
     opts = function(_, opts)
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, overrides.telescope)
     end,
+  },
+
+  {
+    "ibhagwan/fzf-lua",
+    event = "BufEnter",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = { }
   },
 
   {
@@ -187,7 +196,9 @@ local plugins = {
 
   -- To use a extras plugin
   -- { import = "configs.extras.symbols-outline", },
-  { import = "nvchad.blink.lazyspec" }
+
+  -- To enable the blink.cmp, which is under experiment
+  -- { import = "nvchad.blink.lazyspec" },
 }
 
 return plugins

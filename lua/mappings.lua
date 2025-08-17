@@ -43,3 +43,8 @@ map("v", "ff", function()
 end, { desc = "Indent + Format (with conform)", silent = true })
 
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+
+map("n", "<leader>ff", ":FzfLua files<cr>", { desc = "Find files" })
+map("n", "<leader>fw", ":FzfLua live_grep<cr>", { desc = "Live grep" })
+map("n", "<leader>fb", ":FzfLua buffers<cr>", { desc = "Buffers" })
+map("n", "<leader>fh", ":FzfLua help_tags<cr>", { desc = "Help tags" })
