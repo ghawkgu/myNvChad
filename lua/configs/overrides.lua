@@ -31,6 +31,8 @@ M.treesitter = {
   matchup = {
     enable = true, -- mandatory
   },
+
+  auto_install = true,
 }
 
 M.mason = {
