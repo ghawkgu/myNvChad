@@ -48,3 +48,7 @@ map("n", "<leader>ff", ":FzfLua files<cr>", { desc = "Find files" })
 map("n", "<leader>fw", ":FzfLua live_grep<cr>", { desc = "Live grep" })
 map("n", "<leader>fb", ":FzfLua buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>fh", ":FzfLua help_tags<cr>", { desc = "Help tags" })
+
+map("n", "[f", "<cmd>colder<CR>", { desc = "Quickfix stack older" })
+map("n", "]f", "<cmd>cnewer<CR>", { desc = "Quickfix stack newer" })
+
