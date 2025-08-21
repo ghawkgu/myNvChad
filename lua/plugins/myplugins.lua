@@ -37,7 +37,17 @@ local plugins = {
     event = "BufEnter",
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = { }
+    opts = {
+      fzf_opts = {
+        ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
+      },
+
+      previewers = {
+        builtin = {
+          limit_b = 1024 * 1024 * 20
+        }
+      },
+    }
   },
 
   {
