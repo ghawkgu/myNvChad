@@ -71,3 +71,22 @@ end
 
 vim.api.nvim_create_autocmd("InsertEnter", { callback = enter_insert_mode })
 vim.api.nvim_create_autocmd("InsertLeave", { callback = exit_insert_mode })
+
+-- Enable or disable cursorline in specific situations
+-- Underline in i mode should only work with current buffer.
+local function enable_cursor_line()
+    if vim.bo.filetype == "tagbar" then
+        vim.opt_local.cursorline = false
+    else
+        vim.opt_local.cursorline = true
+    end
+end
+
+local function disable_cursor_line()
+    if vim.bo.filetype ~= "NvimTree" then
+        vim.opt_local.cursorline = false
+    end
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, { callback = enable_cursor_line })
+vim.api.nvim_create_autocmd("WinLeave", { callback = disable_cursor_line })
