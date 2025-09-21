@@ -9,45 +9,84 @@ local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  if vim.lsp.config then
+    -- Upgrade for nvim 0.11+
+    vim.lsp.config(lsp, {
+      capabilities = nvlsp.capabilities,
+      on_init = nvlsp.on_init
+    })
+    vim.lsp.enable(lsp)
+  else
+    lspconfig[lsp].setup {
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  end
+end
+
+if vim.lsp.config then
+  -- Upgrade for nvim 0.11+
+  vim.lsp.config("dartls", {
+    -- on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
+    cmd = { "dart", "language-server", "--protocol=lsp" },
+  })
+  vim.lsp.enable("dartls")
+else
+  lspconfig.dartls.setup {
     on_attach = nvlsp.on_attach,
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
+    cmd = { "dart", "language-server", "--protocol=lsp" },
   }
 end
 
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
+if vim.lsp.config then
+  -- Upgrade for nvim 0.11+
+  vim.lsp.config("ruby_lsp", {
+    -- on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
 
--- lspconfig.pyright.setup { blabla}
+    cmd = { "ruby-lsp" },
+    filetypes = { "ruby" },
+    root_dir = lspconfig.util.root_pattern("Gemfile", ".git"),
+    init_options = {
+      formatting = "auto",
+    },
+    single_file_support = true,
+  })
+  vim.lsp.enable("ruby_lsp")
+else
+  lspconfig.ruby_lsp.setup({
+    on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
 
-lspconfig.dartls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-  cmd = { "dart", "language-server", "--protocol=lsp" },
-}
+    cmd = { "ruby-lsp" },
+    filetypes = { "ruby" },
+    root_dir = lspconfig.util.root_pattern("Gemfile", ".git"),
+    init_options = {
+      formatting = "auto",
+    },
+    single_file_support = true,
+  })
+end
 
-lspconfig.ruby_lsp.setup({
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-
-  cmd = { "ruby-lsp" },
-  filetypes = { "ruby" },
-  root_dir = lspconfig.util.root_pattern("Gemfile", ".git"),
-  init_options = {
-    formatting = "auto",
-  },
-  single_file_support = true,
-})
-
-lspconfig.gopls.setup({
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-})
+if vim.lsp.config then
+  -- Upgrade for nvim 0.11+
+  vim.lsp.config("gopls", {
+    -- on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
+  })
+  vim.lsp.enable("gopls")
+else
+  lspconfig.gopls.setup({
+    on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
+  })
+end
