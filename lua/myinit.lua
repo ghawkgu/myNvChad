@@ -31,20 +31,22 @@ vim.opt.listchars = {
 
 -- Highlight groups for special keys and redundant spaces
 vim.api.nvim_set_hl(0, "SpecialKey", { ctermbg = "yellow", standout = true })
-vim.api.nvim_set_hl(0, "RedundantSpaces", { ctermbg = "Grey", bg = "#ffddcc", standout = true })
+vim.api.nvim_set_hl(0, "RedundantSpaces", { ctermbg = "Grey", bg = "#666666", standout = false })
 
 -- Highlight of redundant spaces is disabled as nvcheatsheet is highlighted as well
 -- vim.fn.matchadd("RedundantSpaces", [[\(\s\+$\| \+\ze\t\|\t\zs \+\)\(\%#\)\@!]])
 
 -- Highlight CursorLine conditionally
 local function enter_insert_mode()
-    local excluded_filetypes = { "NvimTree", "Telescope", "TelescopePrompt" }
+    local excluded_filetypes = { "NvimTree", "neo-tree", "Telescope", "TelescopePrompt" }
     if vim.tbl_contains(excluded_filetypes, vim.bo.filetype) then
         return
     end
     vim.opt_local.listchars:remove("eol:¬")
     -- vim.opt_local.list = true
-    vim.api.nvim_set_hl(0, "CursorLine", { underline = true, bg = colors.one_bg2 })
+    local ns = vim.api.nvim_create_namespace("MyBufferCursorLine")
+    vim.api.nvim_set_hl(ns, "CursorLine", { underline = true, bg = colors.one_bg2 })
+    vim.api.nvim_win_set_hl_ns(0, ns)
 
     vim.schedule(function()
         if vim.fn.mode() == "i" then
@@ -60,7 +62,9 @@ local function exit_insert_mode()
     end
     vim.opt_local.listchars:append("eol:¬")
     -- vim.opt_local.list = false
-    vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = colors.one_bg2 })
+    local ns = vim.api.nvim_create_namespace("MyBufferCursorLine")
+    vim.api.nvim_set_hl(ns, "CursorLine", { underline = false, bg = colors.one_bg2 })
+    vim.api.nvim_win_set_hl_ns(0, ns)
 
     vim.schedule(function()
         if vim.fn.mode() ~= "i" then
