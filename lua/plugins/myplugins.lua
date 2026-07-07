@@ -25,6 +25,12 @@ local plugins = {
 
   -- override plugin configs
   {
+    "tpope/vim-rsi",
+    lazy = false, -- Disables lazy loading completely
+    priority = 1000, -- Force loads it before normal plugins
+  },
+
+  {
     "nvim-telescope/telescope.nvim",
     enabled = false,
     opts = function(_, opts)
