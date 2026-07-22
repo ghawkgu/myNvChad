@@ -151,8 +151,29 @@ local plugins = {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
-    -- build = function() vim.fn["mkdp#util#install"]() end,
-    build = ":call mkdp#util#install()",
+    build = function(plugin)
+      vim.cmd("Lazy load markdown-preview.nvim")
+      vim.fn["mkdp#util#install"]()
+      -- local app_dir = plugin.dir .. "/app"
+      -- vim.fn.system("cd " .. app_dir .. " && npm install mermaid@latest && cp node_modules/mermaid/dist/mermaid.min.js _static/mermaid.min.js")
+
+      -- 1. Run the standard app initialization via npm or yarn
+      vim.fn.system({ "npm", "install" })
+
+      -- 2. Determine the path to the internal static asset directory
+      local static_dir = plugin.dir .. "/app/_static/"
+      local target_file = static_dir .. "mermaid.min.js"
+
+      -- 3. Fetch the absolute latest stable version from the jsDelivr CDN
+      local cdn_url = "https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"
+
+      -- 4. Download and overwrite the outdated file seamlessly
+      if vim.fn.executable("curl") == 1 then
+        vim.fn.system({ "curl", "-sL", cdn_url, "-o", target_file })
+      elseif vim.fn.executable("wget") == 1 then
+        vim.fn.system({ "wget", "-q", cdn_url, "-O", target_file })
+      end
+    end,
   },
 
   -- config-local enables project-specific config
