@@ -34,10 +34,31 @@ map("v", "<C-s>", "y:%s/\\v<C-R>=escape(@\", '.*/\\[]^$+?\\|{}()')<CR>//gc<Left>
 
 -- nvchad use <leader>fm for formatting the entire file
 -- Visual mode: format selected range
--- map("v", "<leader>ff", function()
 map("v", "ff", function()
--- @diagnostic disable-next-line: different-requires
-  require("conform").format { async = true, lsp_fallback = true, range = true }
+  -- Extract the visual selection marks
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+
+  -- Handle reverse selection (selecting from bottom to top)
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  -- Get the end line text to safely determine the end column character
+  local lines = vim.api.nvim_buf_get_lines(0, end_line - 1, end_line, true)
+  local end_col = #lines > 0 and #lines[1] or 0
+
+  -- Call conform with the exact visual range coordinates
+  require("conform").format({
+    async = true,
+    lsp_fallback = true,
+    range = {
+      start = { start_line, 0 },
+      ["end"] = { end_line, end_col },
+    },
+  })
+
+  -- Clear the visual selection and return to normal mode
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 end, { desc = "Indent + Format (with conform)", silent = true })
 
