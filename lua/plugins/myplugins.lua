@@ -149,8 +149,25 @@ local plugins = {
 
   {
     "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewResetPlugin" },
     ft = { "markdown" },
+    commit = "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
+    pin = true,
+    config = function(plugin)
+      -- Create the user command to clear local tracking changes
+      vim.api.nvim_create_user_command("MarkdownPreviewResetPlugin", function()
+        local dir = plugin.dir
+        -- Run git command cleanly inside the plugin directory
+        local cmd = string.format("cd %s && git reset --hard && git clean -fd", vim.fn.shellescape(dir))
+
+        local output = vim.fn.system(cmd)
+        if vim.v.shell_error == 0 then
+          vim.notify("markdown-preview.nvim changes successfully reset!", vim.log.levels.INFO)
+        else
+          vim.notify("Failed to reset changes: " .. output, vim.log.levels.ERROR)
+        end
+      end, {})
+    end,
     build = function(plugin)
       vim.cmd("Lazy load markdown-preview.nvim")
       vim.fn["mkdp#util#install"]()
